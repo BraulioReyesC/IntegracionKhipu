@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Portal Pago";
+}
+
+<main id="app" class="container p-3">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-6 ms-auto me-auto">
+            <div class="card shadow rounded-5 border-0">
+                <div class="card-body p-5">
+                    <div class="card-title d-flex"><h3 class="me-2">Bienvenido a mi</h3><h3 class="fw-bold text-primary">Portal de Pagos!</h3></div>
+                    <div>
+                        <p>Para realizar tu pago ingresa los siguientes datos.</p>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Nombre (*)</label>
+                            <div class="input-group input-group-lg">
+                                <input type="text" class="form-control shadow-sm border-light" placeholder="Juan Pérez" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                            </div>
+
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Correo (*)</label>
+                            <div class="input-group input-group-lg">
+                                <input type="text" class="form-control shadow-sm border-light" placeholder="juan.perez@ejemplo.com" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Monto (*)</label>
+                            <div class="input-group input-group-lg">
+                                <input type="text" class="form-control shadow-sm border-light" placeholder="$ 1.000" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Banco (*)</label>
+                            <select class="form-select form-select-lg border-0 shadow-sm" ref="banks">
+                                <option>Cargando ...</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Motivo Pago</label>
+                            <div class="input-group input-group-lg">
+                                <input type="text" class="form-control shadow-sm border-light" placeholder="🍕🍔 Junta del Viernes" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="text-muted mb-3">(*) Obligatorio</div>
+                    <div href="#" class="btn btn-primary w-100 fs-4 rounded-5 shadow-sm" role="button">Ir a Pagar</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section scripts{    
+<script>
+    new Vue({
+        el: '#app',
+        mixins: [mixin],
+        data: {
+        },
+        created() {
+            this.GetBanks()
+        },
+        mounted() {
+            Toast.fire({
+                icon: "success",
+                title: "Signed in successfully"
+            });
+            
+        },
+        methods: {
+
+        },
+        watch: { },
+        computed: { }
+    })
+</script>    
+}

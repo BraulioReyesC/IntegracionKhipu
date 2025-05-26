@@ -1,0 +1,90 @@
+﻿@using IntegracionKHIPU.Helpers;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link href="~/Assets/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css?v=@Guid.NewGuid()" rel="stylesheet" />
+</head>
+<body class="bg-light">
+    @RenderBody()
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Assets/select2/js/select2.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/Assets/vue/vue.min.js"></script>
+    <script src="~/Assets/api.js?v=@Guid.NewGuid()"></script>
+    <script>
+        var baseUrl = '@Url.AbsoluteAction("Index", "Home")';
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 4000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+        });
+        let mixin = {
+            data: {
+                banks: []
+            },
+            created() { },
+            mounted() { },
+            methods: {
+                async GetBanks() {
+                    let response = await api.Pagos.Get_Banks()
+                    if (response.success) {
+                        this.banks = response.data.banks.map(element => ({
+                            id: element.bank_id,
+                            text: element.name,
+                            iconUrl: element.logo_url
+                        }));
+                        $(this.$refs.banks).html('')
+                        $(this.$refs.banks).select2({
+                            data: [
+                                {
+                                    id: 0,
+                                    text: 'Seleccione',
+                                    iconUrl: undefined
+                                },
+                                ...this.banks
+                            ],
+                            templateResult: this.formatSelect,
+                            templateSelection: this.formatSelect,
+                            selectionCssClass: ' form-select-lg shadow-sm border-light border-0 pb-5',
+                            dropdownCssClass: 'form-select form-select-lg shadow-sm border-light border-0',
+                            width: '100%',
+                            escapeMarkup: function (m) { return m; }
+                        });
+                    } else {
+                        alert(response.error)
+                    }
+                },
+                formatSelect(state) {
+                    if (!state.id) return state.text;
+                    var icon = state.iconUrl;
+                    if (icon) {
+                        return $("<span><img class='flag' src='" + icon + "' style='height:35px'/> " + state.text + "</span>");
+                    } else {
+                        return $("<span>" + state.text + "</span>");
+                    }
+
+                }
+            },
+            watch: {},
+            computed: {}
+        }
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
