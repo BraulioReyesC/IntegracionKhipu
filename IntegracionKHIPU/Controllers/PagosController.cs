@@ -1,4 +1,5 @@
-﻿using IntegracionKHIPU.Services;
+﻿using IntegracionKHIPU.Classes;
+using IntegracionKHIPU.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -21,6 +22,23 @@ namespace IntegracionKHIPU.Controllers
             try {
                 return Json(new { success = true, data = ActionsKhipu.Get_Banks() }, JsonRequestBehavior.AllowGet);
             } catch (Exception ex) {
+                return Json(new
+                {
+                    success = false,
+                    error = ex.Message,
+                    stacktrace = ex.StackTrace
+                },JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+        public ActionResult Create_Payment(Khipu oKhipu)
+        {
+            try
+            {
+                return Json(new { success = true, data = ActionsKhipu.Create_Payment(oKhipu) });
+            }
+            catch (Exception ex)
+            {
                 return Json(new
                 {
                     success = false,

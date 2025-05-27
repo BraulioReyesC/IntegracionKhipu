@@ -13,5 +13,13 @@ namespace IntegracionKHIPU.Controllers
             return View();
         }
 
+        public ActionResult ReturnPay() 
+        {
+            return View();
+        }
+        public ActionResult CancelPay()
+        {
+            return View();
+        }
     }
 }

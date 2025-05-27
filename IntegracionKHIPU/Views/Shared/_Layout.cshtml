@@ -11,6 +11,7 @@
 
     <link href="~/Assets/select2/css/select2.min.css" rel="stylesheet" />
     <link href="~/Content/Site.css?v=@Guid.NewGuid()" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 <body class="bg-light">
     @RenderBody()
@@ -37,6 +38,7 @@
         let mixin = {
             data: {
                 banks: []
+                , bankSelected: undefined
             },
             created() { },
             mounted() { },
@@ -47,8 +49,11 @@
                         this.banks = response.data.banks.map(element => ({
                             id: element.bank_id,
                             text: element.name,
-                            iconUrl: element.logo_url
+                            iconUrl: element.logo_url,
+                            message: element.message,
+                            min_amount: element.min_amount
                         }));
+                       
                         $(this.$refs.banks).html('')
                         $(this.$refs.banks).select2({
                             data: [
@@ -66,19 +71,24 @@
                             width: '100%',
                             escapeMarkup: function (m) { return m; }
                         });
+                        $(this.$refs.banks).on('change', (e) => {
+                            this.bankSelected = $(e.target).val()
+                        });
                     } else {
-                        alert(response.error)
+                        Toast.fire({
+                            icon: "error",
+                            title: "Error al obtener bancos, intente más tarde."
+                        });
                     }
                 },
                 formatSelect(state) {
                     if (!state.id) return state.text;
                     var icon = state.iconUrl;
                     if (icon) {
-                        return $("<span><img class='flag' src='" + icon + "' style='height:35px'/> " + state.text + "</span>");
+                        return $("<div class='row align-middle'><div class='col-md-2'><img src='" + icon + "' style='height:35px'/></div><div class='col-md-10'><span>" + state.text + "</span> (Mínimo : "+parseFloat(state.min_amount)+" CLP)</div></div>");
                     } else {
                         return $("<span>" + state.text + "</span>");
                     }
-
                 }
             },
             watch: {},

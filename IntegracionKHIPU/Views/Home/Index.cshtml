@@ -2,77 +2,210 @@
     ViewBag.Title = "Portal Pago";
 }
 
-<main id="app" class="container p-3">
-    <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-6 ms-auto me-auto">
-            <div class="card shadow rounded-5 border-0">
-                <div class="card-body p-5">
-                    <div class="card-title d-flex"><h3 class="me-2">Bienvenido a mi</h3><h3 class="fw-bold text-primary">Portal de Pagos!</h3></div>
-                    <div>
-                        <p>Para realizar tu pago ingresa los siguientes datos.</p>
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Nombre (*)</label>
-                            <div class="input-group input-group-lg">
-                                <input type="text" class="form-control shadow-sm border-light" placeholder="Juan Pérez" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
-                            </div>
+<div id="app">
+    <div class="bg-white position-absolute position-static w-100 vh-100 bg-opacity-50 d-flex" style="z-index:999" v-if="loader">
+        <div class="ms-auto me-auto mt-auto mb-auto">
+            <div class="loader ms-auto me-auto"></div><br /><span class="fs-4 text-primary mt-2 text-center">{{loaderText}}</span>
+        </div>
+    </div>
 
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Correo (*)</label>
-                            <div class="input-group input-group-lg">
-                                <input type="text" class="form-control shadow-sm border-light" placeholder="juan.perez@ejemplo.com" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+    <main class="container p-3">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-6 ms-auto me-auto">
+                <div class="card shadow rounded-5 border-0">
+                    <div class="card-body p-5">
+                        <div class="card-title d-flex"><h3 class="me-2">Bienvenido a mi</h3><h3 class="fw-bold text-primary">Portal de Pagos!</h3></div>
+                        <form @@submit.prevent="irAPagar" ref="formPay">
+                            <p>Para realizar tu pago ingresa los siguientes datos.</p>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Nombre (*)</label>
+                                <div class="input-group input-group-lg" ref="input_payer_name">
+                                    <input type="text" class="form-control shadow-sm border-light" placeholder="Juan Pérez" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" v-model="payer_name" required @@input="validateName()" maxlength="50">
+                                </div>
+                                <div class="invalid-feedback">
+                                    Ingrese un nombre válido
+                                </div>
                             </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Monto (*)</label>
-                            <div class="input-group input-group-lg">
-                                <input type="text" class="form-control shadow-sm border-light" placeholder="$ 1.000" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Correo (*)</label>
+                                <div class="input-group input-group-lg" ref="input_payer_email">
+                                    <input type="email" class="form-control shadow-sm border-light" placeholder="juan.perez@ejemplo.com" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" v-model="payer_email" required @@input="validateEmail()" maxlength="200">
+                                </div>
+                                <div class="invalid-feedback">
+                                    Ingrese un correo válido
+                                </div>
                             </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Banco (*)</label>
-                            <select class="form-select form-select-lg border-0 shadow-sm" ref="banks">
-                                <option>Cargando ...</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Motivo Pago</label>
-                            <div class="input-group input-group-lg">
-                                <input type="text" class="form-control shadow-sm border-light" placeholder="🍕🍔 Junta del Viernes" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Monto (*)</label>
+                                <div class="input-group input-group-lg" ref="input_payer_amount">
+                                    <input type="text" class="form-control shadow-sm border-light" placeholder="$ 1.000" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" v-model="amount" required @@input="validateAmount()" maxlength="10">
+                                </div>
+                                <div class="invalid-feedback">
+                                    Ingrese un monto válido
+                                </div>
                             </div>
-                        </div>
-
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Banco (*)</label>
+                                <select class="form-select form-select-lg border-0 shadow-sm" ref="banks">
+                                    <option>Cargando ...</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Motivo Pago</label>
+                                <div class="input-group input-group-lg">
+                                    <input type="text" class="form-control shadow-sm border-light" placeholder="🍕🍔 Junta del Viernes" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" v-model="subject">
+                                </div>
+                            </div>
+                            <div class="text-muted mb-3">(*) Obligatorio</div>
+                            <button class="btn btn-primary w-100 fs-4 rounded-5 shadow-sm" role="button" type="submit">Ir a Pagar</button>
+                        </form>
+                        
                     </div>
-                    <div class="text-muted mb-3">(*) Obligatorio</div>
-                    <div href="#" class="btn btn-primary w-100 fs-4 rounded-5 shadow-sm" role="button">Ir a Pagar</div>
                 </div>
             </div>
         </div>
-    </div>
-</main>
+    </main>
+</div>
 
 @section scripts{    
-<script>
+    <script>
     new Vue({
         el: '#app',
         mixins: [mixin],
         data: {
+            amount: undefined
+            , subject: undefined
+            , payer_name: undefined
+            , payer_email: undefined
+
+            , loader: false
+            , loaderText: undefined
         },
         created() {
             this.GetBanks()
         },
         mounted() {
-            Toast.fire({
-                icon: "success",
-                title: "Signed in successfully"
-            });
-            
+
+
         },
         methods: {
+            async irAPagar() {
+                if (!this.validateInputs()) {
+                    return;
+                }
+                
+                this.loader = true
+                this.loaderText = 'Procesando Pago'
+                let param = {
+                    amount: this.amount,
+                    subject: this.subject,
+                    bank_id: this.bankSelected,
+                    payer_name: this.payer_name,
+                    payer_email: this.payer_email
+                }
 
+                let response = await api.Pagos.Create_Payment(param)
+
+                if (response.success) {
+                    this.loaderText = 'Redireccionando a Khipu ...'
+                    setTimeout(() => {
+                        window.location.href = response.data.payment_url
+                    }, 3000)
+                } else {
+                    this.loader = false
+                    Toast.fire({
+                        icon: "error",
+                        title: "Error al procesar pago, inténtelo más tarde."
+                    });
+                }
+            },
+            validateName() {
+                $(this.$refs.input_payer_name).find('input').removeClass('border-light')
+
+                if (this.payer_name.length > 0) {
+                    $(this.$refs.input_payer_name).removeClass('is-invalid')
+                    $(this.$refs.input_payer_name).find('input').removeClass('is-invalid')
+
+                    $(this.$refs.input_payer_name).addClass('is-valid')
+                    $(this.$refs.input_payer_name).find('input').addClass('is-valid')
+                } else {
+                    $(this.$refs.input_payer_name).removeClass('is-valid')
+                    $(this.$refs.input_payer_name).find('input').removeClass('is-valid')
+
+                    $(this.$refs.input_payer_name).addClass('is-invalid')
+                    $(this.$refs.input_payer_name).find('input').addClass('is-invalid')
+                }
+            },
+            validateEmail() {
+                $(this.$refs.input_payer_email).find('input').removeClass('border-light')
+
+                if (this.isEmailValid(this.payer_email)) {
+                    $(this.$refs.input_payer_email).removeClass('is-invalid')
+                    $(this.$refs.input_payer_email).find('input').removeClass('is-invalid')
+
+                    $(this.$refs.input_payer_email).addClass('is-valid')
+                    $(this.$refs.input_payer_email).find('input').addClass('is-valid')
+                } else {
+                    $(this.$refs.input_payer_email).removeClass('is-valid')
+                    $(this.$refs.input_payer_email).find('input').removeClass('is-valid')
+
+                    $(this.$refs.input_payer_email).addClass('is-invalid')
+                    $(this.$refs.input_payer_email).find('input').addClass('is-invalid')
+                }
+            },
+            validateAmount() {
+                $(this.$refs.input_payer_amount).find('input').removeClass('border-light')
+
+                if (this.amount > 0) {
+                    $(this.$refs.input_payer_amount).removeClass('is-invalid')
+                    $(this.$refs.input_payer_amount).find('input').removeClass('is-invalid')
+
+                    $(this.$refs.input_payer_amount).addClass('is-valid')
+                    $(this.$refs.input_payer_amount).find('input').addClass('is-valid')
+                } else {
+                    $(this.$refs.input_payer_amount).removeClass('is-valid')
+                    $(this.$refs.input_payer_amount).find('input').removeClass('is-valid')
+
+                    $(this.$refs.input_payer_amount).addClass('is-invalid')
+                    $(this.$refs.input_payer_amount).find('input').addClass('is-invalid')
+                }
+            },
+            isEmailValid(correo) {
+              const regex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+              return regex.test(correo);
+            },
+            validateInputs() {
+                const formulario = this.$refs.formPay;
+
+                if (!formulario.checkValidity()) {
+                    formulario.reportValidity();
+                    return false;
+                }
+
+                if (this.payer_name.lenght == 0) {
+                    Toast.fire({ icon: "error", title: "Completa el nombre" });
+                    return false
+                }
+
+                if (this.payer_email.lenght == 0) {
+                    Toast.fire({ icon: "error", title: "Completa el email" });
+                    return false
+                }
+
+                if (this.amount === 0 || this.amount === undefined) {
+                    Toast.fire({ icon: "error", title: "Ingresa un monto válido" });
+                    return false
+                }
+
+                if (this.bankSelected === '0' || this.bankSelected === undefined) {
+                    Toast.fire({ icon: "error", title: "Selecciona un banco" });
+                    return false
+                }
+                return true;
+            }
         },
         watch: { },
         computed: { }
     })
-</script>    
+    </script>    
 }

@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "CancelPay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <main class="container p-3">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-6 ms-auto me-auto">
+                <div class="card shadow rounded-5 border-0">
+                    <div class="card-body p-5">
+                        <div class="card-title text-center text-danger">
+                            <span class="material-symbols-outlined fs-1">
+                                check_circle
+                            </span>
+                            <h3>Pago Cancelado</h3>
+                        </div>
+                        <p class="text-center text-secondary mt-3">Tu pago se canceló, puedes volver a reintentarlo o contactar con soporte si tuviste algún problema.</p>
+                        
+                        <div class="btn btn-primary w-100 mt-2">
+                            <span class="material-symbols-outlined align-middle">
+                                replay
+                            </span> REINTENTAR
+                        </div>
+                        <div class="btn btn-outline-primary w-100 mt-2">
+                            <span class="material-symbols-outlined align-middle">
+                                support_agent
+                            </span> CONTACTAR CON SOPORTE
+                        </div>
+                        <div class="btn btn-outline-primary w-100 mt-2">
+                            <span class="material-symbols-outlined align-middle">
+                                mail
+                            </span> CONTACTAR CON VENTAS
+                        </div>
+
+                        <div class="btn btn-outline-primary w-100 mt-4 border-0 fw-bold">
+                            <span class="material-symbols-outlined align-middle">
+                                arrow_back
+                            </span> VOLVER A PORTAL DE PAGO
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+@section scripts{
+    <script>
+        new Vue({
+            el: '#app',
+            mixins: [mixin],
+            data: {
+
+            },
+            created() {
+                this.GetBanks()
+            },
+            mounted() {
+
+
+            },
+            methods: {
+
+            },
+            watch: {},
+            computed: {}
+        })
+    </script>
+}
