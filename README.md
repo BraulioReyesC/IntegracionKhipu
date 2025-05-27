@@ -46,13 +46,22 @@ Las credenciales de la API de Khipu (como el `receiver_id` y `secret`) se encuen
 ## 🖼️ Capturas de pantalla
 
 ### Página de inicio
-![Inicio](docs/images/pagina-inicio.png)
+<img src="IntegracionKHIPU/Assets/images/1.inicio.png" alt="Inicio" width="500"/>
 
-### Página de éxito
-![Éxito](docs/images/pagina-exito.png)
+### Validaciones de Formulario
+<img src="IntegracionKHIPU/Assets/images/2.Validacion_Formulario_1.png" alt="Validación Formulario 1" width="500"/>
+<img src="IntegracionKHIPU/Assets/images/2.Validacion_Formulario_2.png" alt="Validación Formulario 2" width="500"/>
 
-### Vista en Postman
-![Postman](docs/images/postman.png)
+### Procesando Pago y Redireccionando a Khipu
+<img src="IntegracionKHIPU/Assets/images/3.Procesando_Pago.png" alt="Procesando Pago" width="500"/>
+
+### Completando Proceso de Pago en Khipu
+<img src="IntegracionKHIPU/Assets/images/4.Completando_Proceso_Pago.png" alt="Completando Pago en Khipu" width="500"/>
+<img src="IntegracionKHIPU/Assets/images/4.Completando_Proceso_Pago_2.png" alt="Completando Pago en Khipu" width="500"/>
+
+### Vistas Finales
+<img src="IntegracionKHIPU/Assets/images/5.Redireccion_a_Exito.png" alt="Exito" width="500"/>
+<img src="IntegracionKHIPU/Assets/images/5.Redireccion_a_Cancelacion.png" alt="Pago Cancelado" width="500"/>
 
 
 > Este proyecto fue desarrollado como una integración directa con la API de pagos de [Khipu](https://khipu.com/), facilitando el proceso de cobro automatizado en aplicaciones web basadas en .NET.
