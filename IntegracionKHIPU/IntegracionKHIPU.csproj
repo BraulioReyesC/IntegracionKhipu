@@ -137,6 +137,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\api.js" />
+    <Content Include="Assets\images\1.inicio.png" />
+    <Content Include="Assets\images\2. Validacion Formulario 1.png" />
+    <Content Include="Assets\images\2. Validacion Formulario 2.png" />
+    <Content Include="Assets\images\3. Procesando Pago.png" />
+    <Content Include="Assets\images\4. Completando Proceso Pago 2.png" />
+    <Content Include="Assets\images\4. Completando Proceso Pago.png" />
+    <Content Include="Assets\images\5. Redireccion a Cancelacion.png" />
+    <Content Include="Assets\images\5. Redireccion a Exito.png" />
     <Content Include="Assets\select2\css\select2.css" />
     <Content Include="Assets\select2\css\select2.min.css" />
     <Content Include="Assets\select2\js\i18n\af.js" />
