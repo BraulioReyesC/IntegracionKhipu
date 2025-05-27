@@ -138,13 +138,13 @@
   <ItemGroup>
     <Content Include="Assets\api.js" />
     <Content Include="Assets\images\1.inicio.png" />
-    <Content Include="Assets\images\2. Validacion Formulario 1.png" />
-    <Content Include="Assets\images\2. Validacion Formulario 2.png" />
-    <Content Include="Assets\images\3. Procesando Pago.png" />
-    <Content Include="Assets\images\4. Completando Proceso Pago 2.png" />
-    <Content Include="Assets\images\4. Completando Proceso Pago.png" />
-    <Content Include="Assets\images\5. Redireccion a Cancelacion.png" />
-    <Content Include="Assets\images\5. Redireccion a Exito.png" />
+    <Content Include="Assets\images\2.Validacion_Formulario_1.png" />
+    <Content Include="Assets\images\2.Validacion_Formulario_2.png" />
+    <Content Include="Assets\images\3.Procesando_Pago.png" />
+    <Content Include="Assets\images\4.Completando_Proceso_Pago_2.png" />
+    <Content Include="Assets\images\4.Completando_Proceso_Pago.png" />
+    <Content Include="Assets\images\5.Redireccion_a_Cancelacion.png" />
+    <Content Include="Assets\images\5.Redireccion_a_Exito.png" />
     <Content Include="Assets\select2\css\select2.css" />
     <Content Include="Assets\select2\css\select2.min.css" />
     <Content Include="Assets\select2\js\i18n\af.js" />
