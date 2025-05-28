@@ -30,7 +30,7 @@ Este proyecto permite generar cobros automáticos usando la API de Khipu y redir
 
 ## 🔐 Configuración de Khipu
 
-Las credenciales de la API de Khipu (como el `x-api-key` ) se encuentran configuradas dentro del archivo `web.config`. Asegúrate de tener tus datos de Khipu correctamente ingresados ahí antes de ejecutar el proyecto.
+Las credenciales de la API de Khipu (como el `x-api-key` ) se encuentran configuradas dentro del archivo `web.config`. Asegúrate de tener tus datos de Khipu correctamente ingresados ahí antes de ejecutar el proyecto. Caso contrario podría generar ERROR.
 
 ## 🔄 Flujo del cobro
 
