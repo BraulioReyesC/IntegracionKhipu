@@ -17,6 +17,7 @@ namespace IntegracionKHIPU.Services
             Parameters.Add("URL_KHIPU", ConfigurationManager.AppSettings.Get("URL_KHIPU"));
             Parameters.Add("GET_BANKS", ConfigurationManager.AppSettings.Get("GET_BANKS"));
             Parameters.Add("CREATE_PAYMENT", ConfigurationManager.AppSettings.Get("CREATE_PAYMENT"));
+            Parameters.Add("GET_PAYMENT_BY_ID", ConfigurationManager.AppSettings.Get("GET_PAYMENT_BY_ID"));
 
 
             return Parameters;

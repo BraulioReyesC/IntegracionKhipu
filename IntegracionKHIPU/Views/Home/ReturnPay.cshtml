@@ -2,52 +2,66 @@
 @{
     ViewBag.Title = "ReturnPay";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string payment_id = String.Empty;
+    if (Request.Cookies["payment_id"] != null)
+    {
+        payment_id = Request.Cookies["payment_id"].Value;
+    }
+
 }
 
-<div>
+<div id="app">
     <main class="container p-3">
         <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-6 ms-auto me-auto">
-                <div class="card shadow rounded-5 border-0">
-                    <div class="card-body p-5">
-                        <div class="card-title text-center text-success">
-                            <span class="material-symbols-outlined fs-1">
-                                check_circle
-                            </span>
-                            <h3>Pago realizado con éxito</h3>
-                        </div>
-                        <p class=" text-center text-secondary mt-3">Este pago fue realizado con éxito, descarga tu comprobante, copia tu id de transacción O envía tu comprobante por correo.</p>
-                        <p class="text-muted small text-center p-0 m-0">Id. Transacción</p>
-                        <div class="alert alert-primary text-center" role="alert">
-                            XHGR-CGS-XSDFG
-                            <span class="material-symbols-outlined align-middle ms-2" role="button" data-bs-toggle="tooltip" title="Copiar">
-                                content_copy
-                            </span>
-                        </div>
-                        <div class="btn btn-primary w-100 mt-2">
-                            <span class="material-symbols-outlined align-middle">
-                                download
-                            </span> DESCARGAR
-                        </div>
-                        <div class="btn btn-outline-primary w-100 mt-2">
-                            <span class="material-symbols-outlined align-middle">
-                                print
-                            </span> IMPRIMIR COMPROBANTE
-                        </div>
-                        <div class="btn btn-outline-primary w-100 mt-2">
-                            <span class="material-symbols-outlined align-middle">
-                                mail
-                            </span> ENVIAR POR MAIL
-                        </div>
+            @if (!payment_id.IsEmpty())
+            {
+                <div class="col-sm-12 col-md-12 col-lg-6 ms-auto me-auto">
+                    <div class="card shadow rounded-5 border-0">
+                        <div class="card-body p-5">
+                            <div class="card-title text-center text-success">
+                                <span class="material-symbols-outlined fs-1">
+                                    check_circle
+                                </span>
+                                <h3>Pago realizado con éxito</h3>
+                            </div>
+                            <p class=" text-center text-secondary mt-3">Este pago fue realizado con éxito, descarga tu comprobante, copia tu id de transacción O envía tu comprobante por correo.</p>
+                            <p class="text-muted small text-center p-0 m-0">Id. Transacción</p>
+                            <div class="alert alert-primary text-center" role="alert">
+                                XHGR-CGS-XSDFG
+                                <span class="material-symbols-outlined align-middle ms-2" role="button" data-bs-toggle="tooltip" title="Copiar">
+                                    content_copy
+                                </span>
+                            </div>
+                            <div class="btn btn-primary w-100 mt-2">
+                                <span class="material-symbols-outlined align-middle">
+                                    download
+                                </span> DESCARGAR
+                            </div>
+                            <div class="btn btn-outline-primary w-100 mt-2">
+                                <span class="material-symbols-outlined align-middle">
+                                    print
+                                </span> IMPRIMIR COMPROBANTE
+                            </div>
+                            <div class="btn btn-outline-primary w-100 mt-2">
+                                <span class="material-symbols-outlined align-middle">
+                                    mail
+                                </span> ENVIAR POR MAIL
+                            </div>
 
-                        <div class="btn btn-outline-primary w-100 mt-4 border-0 fw-bold">
-                            <span class="material-symbols-outlined align-middle">
-                                arrow_back
-                            </span> VOLVER A PORTAL DE PAGO
+                            <div class="btn btn-outline-primary w-100 mt-4 border-0 fw-bold">
+                                <span class="material-symbols-outlined align-middle">
+                                    arrow_back
+                                </span> VOLVER A PORTAL DE PAGO
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            } else { 
+                <div class="col-sm-12 col-md-12 col-lg-6 ms-auto me-auto">
+                    No se encontró ningún pago realizado.
+                </div>
+            }
         </div>
     </main>
 </div>
@@ -58,17 +72,20 @@
             el: '#app',
             mixins: [mixin],
             data: {
-                
+                payment_id: '@payment_id'
             },
             created() {
-                this.GetBanks()
+                
             },
             mounted() {
-
+                this.getPaymentById()
 
             },
             methods: {
-               
+                async getPaymentById() {
+                    let response = await api.Pagos.Get_Payment_By_ID({ payment_id: this.payment_id })
+                    console.log(response)
+                }
             },
             watch: {},
             computed: {}

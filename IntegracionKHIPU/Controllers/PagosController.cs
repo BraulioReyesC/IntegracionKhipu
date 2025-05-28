@@ -47,5 +47,22 @@ namespace IntegracionKHIPU.Controllers
                 });
             }
         }
+        [HttpGet]
+        public ActionResult Get_Payment_By_ID(string payment_id)
+        {
+            try
+            {
+                return Json(new { success = true, data = ActionsKhipu.Get_Payment_By_ID(new Khipu { payment_id = payment_id}) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    error = ex.Message,
+                    stacktrace = ex.StackTrace
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

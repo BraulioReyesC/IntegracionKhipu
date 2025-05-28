@@ -45,6 +45,7 @@
     api.Pagos = {};
     api.Pagos.Get_Banks = (params) => get('Pagos/Get_Banks', params)
     api.Pagos.Create_Payment = (params) => post('Pagos/Create_Payment', params)
+    api.Pagos.Get_Payment_By_ID = (params) => get('Pagos/Get_Payment_By_ID', params)
    
 
 })();

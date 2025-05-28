@@ -18,5 +18,10 @@ namespace IntegracionKHIPU.Services
             CoreKhipu core = new CoreKhipu();
             return core.Create_Payment(oKhipu);
         }
+        public static Khipu Get_Payment_By_ID(Khipu oKhipu)
+        {
+            CoreKhipu core = new CoreKhipu();
+            return core.Get_Payment_By_ID(oKhipu);
+        }
     }
 }

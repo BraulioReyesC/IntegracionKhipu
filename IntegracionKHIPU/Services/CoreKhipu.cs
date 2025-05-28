@@ -87,5 +87,31 @@ namespace IntegracionKHIPU.Services
                 }
             }
         }
+
+        public Khipu Get_Payment_By_ID(Khipu oKhipu)
+        {
+            Dictionary<string, string> Headers = new Dictionary<string, string>();
+            Headers.Add("x-api-key", parameters["API_KHIPU"]);
+            Headers.Add("Accept", "*/*");
+            var param = new
+            { };
+            using (HttpResponseMessage resp = base.CallService(parameters["URL_KHIPU"] + parameters["GET_PAYMENT_BY_ID"] + oKhipu.payment_id, Constant.Verbs.GET, param, Headers))
+            {
+                string responseContent = resp.Content.ReadAsStringAsync().Result;
+                if (!resp.IsSuccessStatusCode)
+                {
+                    throw new Exception($"Error en la llamada al servicio: {(int)resp.StatusCode} {resp.ReasonPhrase}. Contenido: {responseContent}");
+                }
+
+                try
+                {
+                    return JsonConvert.DeserializeObject<Khipu>(responseContent);
+                }
+                catch (JsonException jsonEx)
+                {
+                    throw new Exception("Error deserializando el contenido de la respuesta: " + jsonEx.Message + ". Contenido: " + responseContent, jsonEx);
+                }
+            }
+        }
     }
 }

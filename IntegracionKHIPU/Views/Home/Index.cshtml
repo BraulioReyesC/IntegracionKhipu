@@ -108,6 +108,9 @@
 
                 if (response.success) {
                     this.loaderText = 'Redireccionando a Khipu ...'
+
+                    document.cookie = `payment_id=${response.data.payment_id}; path=/`;
+
                     setTimeout(() => {
                         window.location.href = response.data.payment_url
                     }, 3000)
