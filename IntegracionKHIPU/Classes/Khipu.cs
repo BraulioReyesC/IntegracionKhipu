@@ -15,7 +15,7 @@ namespace IntegracionKHIPU.Classes
         public string app_url { get; set; }
         public bool ready_for_terminal { get; set; }
         public List<KhipuBank> banks { get; set; } = new List<KhipuBank>();
-        public int amount { get; set; }
+        public string amount { get; set; }
         public string currency { get; set; }
         public string subject { get; set; }
         public string return_url { get; set; }
@@ -23,6 +23,10 @@ namespace IntegracionKHIPU.Classes
         public string payer_name { get; set; }
         public string payer_email { get; set; }
         public string bank_id { get; set; }
+
+        public List<string> attachment_urls = new List<string>();
+        public string status { get; set; }
+        public string transaction_id { get; set; }
     }
 
     public class KhipuBank {

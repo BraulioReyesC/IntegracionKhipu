@@ -28,8 +28,8 @@
                             <p class=" text-center text-secondary mt-3">Este pago fue realizado con éxito, descarga tu comprobante, copia tu id de transacción O envía tu comprobante por correo.</p>
                             <p class="text-muted small text-center p-0 m-0">Id. Transacción</p>
                             <div class="alert alert-primary text-center" role="alert">
-                                XHGR-CGS-XSDFG
-                                <span class="material-symbols-outlined align-middle ms-2" role="button" data-bs-toggle="tooltip" title="Copiar">
+                                {{payment_id}}
+                                <span class="material-symbols-outlined align-middle ms-2" role="button" data-bs-toggle="tooltip" title="Copiar" @@click="copiarAPortapapeles(payment_id)">
                                     content_copy
                                 </span>
                             </div>
@@ -49,11 +49,11 @@
                                 </span> ENVIAR POR MAIL
                             </div>
 
-                            <div class="btn btn-outline-primary w-100 mt-4 border-0 fw-bold">
+                            <a class="btn btn-outline-primary w-100 mt-4 border-0 fw-bold" href="/Home/Index">
                                 <span class="material-symbols-outlined align-middle">
                                     arrow_back
                                 </span> VOLVER A PORTAL DE PAGO
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -73,6 +73,7 @@
             mixins: [mixin],
             data: {
                 payment_id: '@payment_id'
+                , transaction_id: undefined
             },
             created() {
                 
@@ -84,7 +85,32 @@
             methods: {
                 async getPaymentById() {
                     let response = await api.Pagos.Get_Payment_By_ID({ payment_id: this.payment_id })
-                    console.log(response)
+                    if (response.success)
+                    {
+                        this.transaction_id = response.data.transaction_id
+                    } else {
+                        Toast.fire({
+                            icon: "error",
+                            title: "Error al procesar pago: " + response.error
+                        });
+                    }
+                },
+                copiarAPortapapeles(texto) {
+                    const elementoTemporal = document.createElement("textarea");
+                    elementoTemporal.value = texto;
+
+                    elementoTemporal.setAttribute("readonly", "");
+                    elementoTemporal.style.position = "absolute";
+                    elementoTemporal.style.left = "-9999px";
+
+                    document.body.appendChild(elementoTemporal);
+                    elementoTemporal.select();
+                    document.execCommand("copy");
+                    document.body.removeChild(elementoTemporal);
+                    Toast.fire({
+                        icon: "success",
+                        title: "Copiado a portapapeles"
+                    });
                 }
             },
             watch: {},

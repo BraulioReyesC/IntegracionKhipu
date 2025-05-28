@@ -58,7 +58,7 @@ namespace IntegracionKHIPU.Services
             Headers.Add("Accept", "*/*");
             var param = new
             {
-                amount = oKhipu.amount,
+                amount = int.Parse(oKhipu.amount),
                 currency =  "CLP",
                 subject = oKhipu.subject,
                 return_url = ConfigurationManager.AppSettings.Get("RETURN_URL"),
