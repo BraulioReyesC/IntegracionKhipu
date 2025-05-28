@@ -34,10 +34,10 @@ Las credenciales de la API de Khipu (como el `receiver_id` y `secret`) se encuen
 
 ## 🔄 Flujo del cobro
 
-1. El sistema consume el endpoint `get_banks` de la API de Khipu para obtener las opciones bancarias disponibles.
-2. Luego, se ejecuta el endpoint `create_payment` para generar el cobro.
+1. El sistema consume el endpoint `[get_banks](https://payment-api.khipu.com/v3/banks)` de la API de Khipu para obtener las opciones bancarias disponibles.
+2. Luego, se ejecuta el endpoint `[create_payment](https://payment-api.khipu.com/v3/payments)` para generar el cobro.
 3. El usuario es redirigido a Khipu para completar el pago.
-4. Tras finalizar, el usuario es enviado de vuelta a una **página de éxito** dentro del mismo sistema.
+4. Tras finalizar, el usuario es enviado de vuelta a una **página de éxito** dentro del mismo sistema y usando el endpoint `[Get_payment_by_Id](https://payment-api.khipu.com/v3/payments/{id})` para obtener el estado del pago.
 
 ## 👤 Autor
 
